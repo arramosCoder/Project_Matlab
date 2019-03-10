@@ -8,28 +8,22 @@ figure, imshow(image/255);  % /255 to make double to display image forowsat
 title('Orginal Image');
 
 % image size = row x col pixels 
-rows = 300; cols = 500;
+[rowa, cols, numberOfColorChannels] = size(image_orginal);
+%rows = 300; cols = 500;
 
-% 1) Create Binary Mask for Waterowsark
-% make a rectangle within the zero matrix
-% 0's : black
-% 1's : white
-binaryMask = zeros(rows,cols);
-binaryMask(100:250,100:350) = 1;
-figure,imshow(binaryMask)
-title('Binary Mask');
-save mask.dat binaryMask -ascii
-
+% 2) Visually represent what DCT will affect
 % Convert Image to greyscale
 greyScaleImage = rgb2gray(image_orginal);
 figure, imshow(greyScaleImage);
 title('Greyscale Image');
 
+% Apply DCT to greyscaled image
 DCT_image = dct2(greyScaleImage);
 
 figure
 imshow(log(abs(DCT_image)),[])
-title('Frequencies of Image')
-ylabel('Lowest to Highest Frequency')
+title('Absolute Value of Image Frequencies')
 colormap(gca,jet(64))
 colorbar
+ylabel('Lowest to Highest Frequency')
+xlabel('Discrete cosine transform will remeove highest frequencies (red)')
