@@ -66,3 +66,30 @@ figure(9),imshow(imageWaterowsarked);
 figure(10) ; imshow(imageWaterowsarked/255)
 figure(11) ; imshow(100 - abs(imageWaterowsarked-image)*100)
 
+% extraction: 
+close all;
+y = imageWaterowsarked;
+dy1 = dct2(y(:,:,1));
+dy2 = dct2(y(:,:,2));
+dy3 = dct2(y(:,:,3));
+extr_mask = zeros(rows,cols,3);
+extr_mask(:,:,1) = (dy1 - dct2(image(:,:,1)))/alpha;
+extr_mask(:,:,2) = (dy2 - dct2(image(:,:,2)))/alpha;
+extr_mask(:,:,3) = (dy3 - dct2(image(:,:,3)))/alpha;
+
+figure;imshow(extr_mask(:,:,1));
+
+for band = 1:3
+mask_curr = extr_mask(:,:,band);
+for i = 1:rows
+    for j = 1:cols
+        if abs(mask_curr(i,j)) < 1
+            mask_curr(i,j) = 0;
+        else
+            mask_curr(i,j) = abs(mask_curr(i,j));
+        end
+    end
+end
+end
+figure;imshow(extr_mask(:,:,1));
+
