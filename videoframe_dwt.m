@@ -214,7 +214,7 @@ title('Extracted Mask')
 % title('FINAL ROUNDED Extracted Mask')
 
 % 2) Visually represent what DCT will affect
-Convert Image to greyscale
+% Convert Image to greyscale
 greyScaleImage = rgb2gray(selectedFrame);
 figure, imshow(greyScaleImage);
 title('Greyscale Image');
